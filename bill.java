@@ -2,14 +2,15 @@ import java.util.Scanner;
 //calculates the electric bill of the building. Personal use only.
 //copyrighted.
 //Developer: Lokeshwar
-//
+//github: im-loki
+
 interface values{
 	
 	double tax_rate=5;
 	double loss_rate=7.5;
 	double demand_unit_charges=230;
-	double elec_unit_rate=8.45;
-	double gen_unit_rate=12;
+	double elec_unit_rate=8.70;
+	double gen_unit_rate=14;
 	
 	
 }
@@ -28,12 +29,6 @@ class entity implements values{
 			double gen_present,double gen_previous){
 		
 		System.out.println("Inside constructor block.");
-		
-		if(elec_present<elec_previous)
-			swap(elec_present,elec_previous);
-		
-		if(gen_present<gen_previous)
-			swap(gen_present,gen_previous);
 		
 		if((elec_present>=elec_previous)&&(gen_present>gen_previous)){
 			
@@ -72,18 +67,13 @@ class entity implements values{
 		System.out.println("Total cost: "+total_cost);
 	}
 	
-	void swap(double a,double b) {
-		double temp = a;
-		a = b;
-		b = temp;
-	}
-	
-	
 	
 }
 public class bill {
+	
 
 	public static void main(String[] args) {
+		
 		
 		double elec_present, elec_previous, alloted_power, gen_present, gen_previous;
 		Scanner scan = new Scanner(System.in);
@@ -101,6 +91,18 @@ public class bill {
 		gen_previous=scan.nextDouble();
 		System.out.println("Input completed.");
 		
+		if(elec_present<elec_previous) {
+			double temp = elec_present;
+			elec_present = elec_previous;
+			elec_previous = temp;
+		}
+		
+		if(gen_present<gen_previous) {
+			double temp = gen_present;
+			gen_present = gen_previous;
+			gen_previous = temp;
+		}
+		
 		entity obj = new entity(elec_present,elec_previous,alloted_power,
 				gen_present,gen_previous);
 		
@@ -111,6 +113,8 @@ public class bill {
 		
 
 	}
+	
+	
 
 }
 
